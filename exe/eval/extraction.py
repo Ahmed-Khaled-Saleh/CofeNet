@@ -6,7 +6,7 @@
 # common operations for extraction
 
 from typing import List
-from .const import CONST
+#from .const import CONST
 
 
 def get_element(labels: List[str]):
@@ -18,7 +18,7 @@ def get_element(labels: List[str]):
     flag_find, tmp_label, tmp_idx_start = reset()
 
     for idx, label in enumerate(labels):
-        if label == CONST.IGNORE:
+        if label == '<IGN>':
             if flag_find:
                 dict_main[tmp_label].append([tmp_idx_start, idx])
             break
