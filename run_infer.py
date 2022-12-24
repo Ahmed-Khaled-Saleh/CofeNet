@@ -14,6 +14,7 @@ def tgidss2tgstrss(tgidss, file_path ,lengths=None):
         map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(file_path))}
         map_tgid2tg = {idx: tag for tag, idx in map_tg2tgid.items()}
         
+        print(map_tgid2tg)
         if lengths is None:
             for tgids in tgidss:
                 tgstrss.append([map_tgid2tg[tgid] for tgid in tgids])
