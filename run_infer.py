@@ -17,7 +17,7 @@ def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batc
         with torch.no_grad():
             batch_preds = model.predict(batch_data)
             print(batch_preds)
-            break
+            
         #print(batch_data)
 
 
