@@ -4,7 +4,8 @@ import torch.nn.functional as F
 from torchcrf import CRF
 
 from infer.model.base import ExpModelBase
-from infer.model.torch_utils import WordBert, EnhancedCell
+from infer.model.torch_utils.bert import WordBert
+from infer.model.torch_utils.cofe import EnhancedCell
 # from infer.model.torch_utils import sequence_mask
 
 

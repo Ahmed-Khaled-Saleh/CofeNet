@@ -3,7 +3,7 @@ import torch
 from torch.utils.data import SequentialSampler
 from infer.utils import utils
 from infer.dataset import dataset
-from infer.model.mod_bert import  ModelBert_Cofe
+from infer.model.mod_bert import ModelBert_Cofe
 
 def get_preds_trues(dataset, model_path = '/kaggle/working/CofeNet/model_6000.bin', batch_size= 32):
     dataloder = loader.SingleDataLoader(dataset=dataset, batch_size=batch_size,
