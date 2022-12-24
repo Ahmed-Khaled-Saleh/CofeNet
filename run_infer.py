@@ -3,29 +3,32 @@ import torch
 from torch.utils.data import SequentialSampler
 from infer.utils import utils
 from infer.dataset import dataset
-from infer.dataset.dataset import ExpDatasetBase
 from infer.model.mod_bert import ModelBert_Cofe
 
 
 
-def tgidss2tgstrss(tgidss, lengths=None):
+
+
+def tgidss2tgstrss(tgidss, file_path ,lengths=None):
         tgstrss = []
+        map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(file_path))}
+        map_tgid2tg = {idx: tag for tag, idx in map_tg2tgid.items()}
         
         if lengths is None:
             for tgids in tgidss:
-                tgstrss.append([dataset.DatasetBert.map_tgid2tg[tgid] for tgid in tgids])
+                tgstrss.append([map_tgid2tg[tgid] for tgid in tgids])
         else:
             for tgids, length in zip(tgidss, lengths):
-                tgstrss.append([dataset.DatasetBert.map_tgid2tg[tgid] for tgid in tgids[:length]])
+                tgstrss.append([map_tgid2tg[tgid] for tgid in tgids[:length]])
         return tgstrss
 
 
 
 
-def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batch_size= 32):
+def get_preds_trues(dataset, file_path, model_path = '/kaggle/working/model_6000.bin', batch_size= 32):
     dataloder = loader.SingleDataLoader(dataset=dataset, batch_size=batch_size,
                                 sampler=SequentialSampler(dataset), collate_fn=dataset.collate)
-    preds, labels = [], []
+    preds = []
     model = ModelBert_Cofe()
     model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
@@ -33,9 +36,9 @@ def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batc
         model.eval()
         with torch.no_grad():
             batch_preds = model.predict(batch_data)
-            #print(batch_preds)
+            
             batch_pred_strs = tgidss2tgstrss(
-                batch_preds.data.cpu().numpy() if not isinstance(batch_preds, list) else batch_preds,
+                batch_preds.data.cpu().numpy() if not isinstance(batch_preds, list) else batch_preds, file_path,
                 batch_data['lengths'].cpu().numpy())
 
             preds.extend(batch_pred_strs)
@@ -62,7 +65,7 @@ if __name__ == '__main__':
     #print(data)
     #print(load_json_file_by_line(file_path))
     DataBert = dataset.DatasetBert(file_path)
-    print(get_preds_trues(DataBert))
+    print(get_preds_trues(DataBert, file_path))
 
 
     #ModelBert_Cofe().load_state_dict(torch.load(model_path, map_location='cpu'))
