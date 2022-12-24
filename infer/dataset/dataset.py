@@ -2,7 +2,7 @@ import torch
 from tqdm import tqdm
 
 from torch.utils.data import Dataset
-from infer.utils import *
+from infer.utils import utils
 from infer.dataset import vocab
 
 class ExpDatasetBase(Dataset):
@@ -11,7 +11,7 @@ class ExpDatasetBase(Dataset):
     def __init__(self, file_path, device=None):
         self.device = torch.device('cpu') if device is None else device
 
-        self.map_tg2tgid = {tag: idx for idx, tag in enumerate(load_text_file_by_line(file_path))}
+        self.map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(file_path))}
         self.map_tgid2tg = {idx: tag for tag, idx in self.map_tg2tgid.items()}
 
         self.org_data = load_data_from_file(file_path)
