@@ -38,7 +38,7 @@ def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batc
                 batch_data['lengths'].cpu().numpy())
 
             preds.extend(batch_pred_strs)
-        return preds
+    return preds
             
 
 
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     #print(data)
     #print(load_json_file_by_line(file_path))
     DataBert = dataset.DatasetBert(file_path)
-    get_preds_trues(DataBert)
+    print(get_preds_trues(DataBert))
 
 
     #ModelBert_Cofe().load_state_dict(torch.load(model_path, map_location='cpu'))
