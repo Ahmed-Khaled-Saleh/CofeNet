@@ -92,8 +92,8 @@ class ExpDatasetBase(Dataset):
         self.org_data = load_data_from_file(file_path)
 
 class DatasetBert(ExpDatasetBase):
-    def __init__(self, file_type, device=None):
-        super().__init__(file_type, device)
+    def __init__(self, file_path, device=None):
+        super().__init__(file_path, device)
 
         self.vocab = VocabularyBert.load_vocabulary(self)
         self.tkidss, self.wdlenss, self.lbidss, self.tk_lengths, self.wd_lengths = [], [], [], [], []
@@ -195,7 +195,7 @@ if __name__ == '__main__':
     ]
 
     file_path = read_write_str(infer_str, "infer_file.txt")
-    data = load_data_from_file(file_path)
-    print(data)
-    print(load_json_file_by_line(file_path))
-
+    #data = load_data_from_file(file_path)
+    #print(data)
+    #print(load_json_file_by_line(file_path))
+    DataBert = DatasetBert(file_path)
