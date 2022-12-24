@@ -1,14 +1,24 @@
 from infer.dataset import loader
+import torch
 from torch.utils.data import SequentialSampler
 from infer.utils import utils
 from infer.dataset import dataset
+from infer.model.mod_bert import  ModelBert_Cofe
 
-def get_preds_trues(dataset, batch_size= 32):
+def get_preds_trues(dataset, model_path, batch_size= 32):
     dataloder = loader.SingleDataLoader(dataset=dataset, batch_size=batch_size,
                                 sampler=SequentialSampler(dataset), collate_fn=dataset.collate)
     preds, labels = [], []
+    model = ModelBert_Cofe()
+    model = model.load_state_dict(torch.load(model_path, map_location='cpu'))
+
     for batch_data in dataloder:
-        print(batch_data)
+        model.eval()
+        with torch.no_grad():
+            batch_preds = model.predict(batch_data)
+            print(batch_preds)
+            break
+        #print(batch_data)
 
 
 
@@ -32,3 +42,6 @@ if __name__ == '__main__':
     #print(load_json_file_by_line(file_path))
     DataBert = dataset.DatasetBert(file_path)
     get_preds_trues(DataBert)
+
+
+    #ModelBert_Cofe().load_state_dict(torch.load(model_path, map_location='cpu'))
