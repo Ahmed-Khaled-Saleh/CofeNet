@@ -10,12 +10,13 @@ from infer.model.mod_bert import ModelBert_Cofe
 
 def tgidss2tgstrss(tgidss, lengths=None):
         tgstrss = []
+        
         if lengths is None:
             for tgids in tgidss:
-                tgstrss.append([ExpDatasetBase.map_tgid2tg[tgid] for tgid in tgids])
+                tgstrss.append([dataset.DatasetBert.map_tgid2tg[tgid] for tgid in tgids])
         else:
             for tgids, length in zip(tgidss, lengths):
-                tgstrss.append([ExpDatasetBase.map_tgid2tg[tgid] for tgid in tgids[:length]])
+                tgstrss.append([dataset.DatasetBert.map_tgid2tg[tgid] for tgid in tgids[:length]])
         return tgstrss
 
 
