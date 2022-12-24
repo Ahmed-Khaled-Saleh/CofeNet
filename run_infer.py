@@ -95,7 +95,7 @@ class DatasetBert(ExpDatasetBase):
     def __init__(self, file_path, device=None):
         super().__init__(file_path, device)
 
-        self.vocab = VocabularyBert.load_vocabulary(self)
+        self.vocab = VocabularyBert.load_vocabulary()
         self.tkidss, self.wdlenss, self.lbidss, self.tk_lengths, self.wd_lengths = [], [], [], [], []
         for item in tqdm(self.org_data):
             tkids, wdlens, lbids = [self.vocab.ID_CLS], [], []
