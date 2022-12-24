@@ -10,7 +10,7 @@ def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batc
                                 sampler=SequentialSampler(dataset), collate_fn=dataset.collate)
     preds, labels = [], []
     model = ModelBert_Cofe()
-    model = model.load_state_dict(torch.load(model_path, map_location='cpu'))
+    model.load_state_dict(torch.load(model_path, map_location='cpu'))
 
     for batch_data in dataloder:
         model.eval()
