@@ -100,15 +100,15 @@ class DatasetBert(ExpDatasetBase):
         for item in tqdm(self.org_data):
             tkids, wdlens, lbids = [self.vocab.ID_CLS], [], []
 
-            for wd, tg in zip(item['tokens'], item['labels']):
+            for wd in item['tokens']:
                 wd_tkids = self.vocab.wd2ids(wd)
                 tkids.extend(wd_tkids)
                 wdlens.append(len(wd_tkids))
-                lbids.append(self.map_tg2tgid[tg])
+                #lbids.append(self.map_tg2tgid[tg])
 
             self.tkidss.append(tkids)
             self.wdlenss.append(wdlens)
-            self.lbidss.append(lbids)
+            #self.lbidss.append(lbids)
 
             self.tk_lengths.append(len(tkids))
             self.wd_lengths.append(len(wdlens))
@@ -119,11 +119,11 @@ class DatasetBert(ExpDatasetBase):
     def __getitem__(self, idx):
         return {
             'tkids': self.tkidss[idx],
-            'lbids': self.lbidss[idx],
+            #'lbids': self.lbidss[idx],
             'wdlens': self.wdlenss[idx],
             'tk_length': self.tk_lengths[idx],
             'wd_length': self.wd_lengths[idx],
-            'lbstrs': self.org_data[idx]['labels']
+            #'lbstrs': self.org_data[idx]['labels']
         }
 
     def collate(self, batch):
@@ -163,8 +163,8 @@ class DatasetBert(ExpDatasetBase):
             tkidss.append(item['tkids'] + [self.vocab.ID_PAD] * tk_num_pad)
             attention_mask.append([1] * item['tk_length'] + [0] * tk_num_pad)
             wdlens.append(item['wdlens'] + [0] * wd_num_pad)
-            lbidss.append(item['lbids'] + [self.LBID_IGN] * wd_num_pad)
-            lbstrss.append(item['lbstrs'])
+            #lbidss.append(item['lbids'] + [self.LBID_IGN] * wd_num_pad)
+            #lbstrss.append(item['lbstrs'])
 
         output = {
             'tkidss': torch.tensor(tkidss).to(self.device),
@@ -173,8 +173,8 @@ class DatasetBert(ExpDatasetBase):
             'lengths': torch.tensor(wd_lengths).to(self.device)
         }
 
-        lbidss = torch.tensor(lbidss).to(self.device)
-        return output, lbidss, lbstrss
+        #lbidss = torch.tensor(lbidss).to(self.device)
+        return output
 
 
 
