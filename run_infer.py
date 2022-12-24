@@ -3,7 +3,23 @@ import torch
 from torch.utils.data import SequentialSampler
 from infer.utils import utils
 from infer.dataset import dataset
+from infer.dataset.dataset import ExpDatasetBase
 from infer.model.mod_bert import ModelBert_Cofe
+
+
+
+def tgidss2tgstrss(tgidss, lengths=None):
+        tgstrss = []
+        if lengths is None:
+            for tgids in tgidss:
+                tgstrss.append([ExpDatasetBase.map_tgid2tg[tgid] for tgid in tgids])
+        else:
+            for tgids, length in zip(tgidss, lengths):
+                tgstrss.append([ExpDatasetBase.map_tgid2tg[tgid] for tgid in tgids[:length]])
+        return tgstrss
+
+
+
 
 def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batch_size= 32):
     dataloder = loader.SingleDataLoader(dataset=dataset, batch_size=batch_size,
@@ -16,10 +32,14 @@ def get_preds_trues(dataset, model_path = '/kaggle/working/model_6000.bin', batc
         model.eval()
         with torch.no_grad():
             batch_preds = model.predict(batch_data)
-            print(batch_preds)
-            
-        #print(batch_data)
+            #print(batch_preds)
+            batch_pred_strs = tgidss2tgstrss(
+                batch_preds.data.cpu().numpy() if not isinstance(batch_preds, list) else batch_preds,
+                batch_data['lengths'].cpu().numpy())
 
+            preds.extend(batch_pred_strs)
+        return preds
+            
 
 
 if __name__ == '__main__':
