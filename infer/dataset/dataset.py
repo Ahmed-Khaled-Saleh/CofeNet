@@ -14,7 +14,7 @@ class ExpDatasetBase(Dataset):
         self.map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(file_path))}
         self.map_tgid2tg = {idx: tag for tag, idx in self.map_tg2tgid.items()}
 
-        self.org_data = load_data_from_file(file_path)
+        self.org_data = utils.load_data_from_file(file_path)
 
 class DatasetBert(ExpDatasetBase):
     def __init__(self, file_path, device=None):
