@@ -53,10 +53,10 @@ if __name__ == '__main__':
 
     infer_str = \
     ['Kyiv has strongly denied the accusations and said that Russia is using nuclear blackmail in order to try to block support \
-        for its successful counteroffensive against the Russian invasion force.',\
+        for its successful counteroffensive against the Russian invasion force.',
 
     'The US president, Joe Biden, on Wednesday said that he had spent “a lot of time” discussing whether Russia may be preparing to use a \
-        tactical nuclear weapon in Ukraine.', \
+        tactical nuclear weapon in Ukraine.', 
             
     '“We have never said anything about the possible use of nuclear weapons by Russia, but only hinted at the statements made by the leaders\
          of western countries,” Putin said in his remarks.'
