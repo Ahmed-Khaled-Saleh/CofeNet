@@ -14,7 +14,7 @@ def tgidss2tgstrss(tgidss, file_path ,lengths=None):
         map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(file_path))}
         map_tgid2tg = {idx: tag for tag, idx in map_tg2tgid.items()}
         
-        print(map_tgid2tg)
+        
         if lengths is None:
             for tgids in tgidss:
                 tgstrss.append([map_tgid2tg[tgid] for tgid in tgids])
@@ -37,8 +37,7 @@ def get_preds_trues(dataset, file_path, model_path = '/kaggle/working/model_6000
         model.eval()
         with torch.no_grad():
             batch_preds = model.predict(batch_data)
-            print('batch data')
-            print(batch_preds.data.cpu().numpy())
+            
             
             batch_pred_strs = tgidss2tgstrss(
                 batch_preds.data.cpu().numpy() if not isinstance(batch_preds, list) else batch_preds, file_path,
