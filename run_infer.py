@@ -59,7 +59,9 @@ if __name__ == '__main__':
         tactical nuclear weapon in Ukraine.', 
             
     '“We have never said anything about the possible use of nuclear weapons by Russia, but only hinted at the statements made by the leaders\
-         of western countries,” Putin said in his remarks.'
+         of western countries,” Putin said in his remarks.',
+         
+    'The US president, Joe Biden, on Wednesday said that he had spent “a lot of time” discussing whether Russia may be preparing to use a tactical nuclear weapon in Ukraine.“Let me just say Russia would be making an incredibly serious mistake if it were to use a tactical nuclear weapon,” he told reporters. “I’m not guaranteeing that it’s a false-flag operation yet. We don’t know. It would be a serious, serious mistake.”During his speech at the Valdai Club, a Kremlin-aligned foreign policy thinktank, on Thursday, Putin said that assertions about Russia’s possible use of nuclear weapons were meant to scare its supporters by indicating “what a bad country Russia is”. “We have never said anything about the possible use of nuclear weapons by Russia, but only hinted at the statements made by the leaders of western countries,” Putin said in his remarks.'
     ]
 
     file_path = utils.read_write_str(infer_str, "infer_file.txt")
