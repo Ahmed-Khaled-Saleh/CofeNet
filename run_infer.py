@@ -38,6 +38,9 @@ def get_preds_trues(dataset, file_path, model_path = '/kaggle/working/model_6000
         with torch.no_grad():
             batch_preds = model.predict(batch_data)
             
+            print('batch data')
+            print(batch_preds.data.cpu().numpy())
+
             batch_pred_strs = tgidss2tgstrss(
                 batch_preds.data.cpu().numpy() if not isinstance(batch_preds, list) else batch_preds, file_path)
                 #batch_data['lengths'].cpu().numpy())
