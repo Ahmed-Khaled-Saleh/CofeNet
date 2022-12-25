@@ -9,9 +9,9 @@ from infer.model.mod_bert import ModelBert_Cofe
 
 
 
-def tgidss2tgstrss(tgidss, file_path ,lengths=None):
+def tgidss2tgstrss(tgidss, tags_file_path ,lengths=None):
         tgstrss = []
-        map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(file_path))}
+        map_tg2tgid = {tag: idx for idx, tag in enumerate(utils.load_text_file_by_line(tags_file_path))}
         map_tgid2tg = {idx: tag for tag, idx in map_tg2tgid.items()}
         
         
@@ -63,12 +63,6 @@ if __name__ == '__main__':
     ]
 
     file_path = utils.read_write_str(infer_str, "infer_file.txt")
-    #data = load_data_from_file(file_path)
-    #print(data)
-    #print(load_json_file_by_line(file_path))
     DataBert = dataset.DatasetBert(file_path)
     tag_file_path = '/kaggle/working//CofeNet/res/polnear/tag.txt'
     print(get_preds_trues(DataBert, tag_file_path))
-
-
-    #ModelBert_Cofe().load_state_dict(torch.load(model_path, map_location='cpu'))
